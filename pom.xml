@@ -24,6 +24,11 @@
     <!-- Important for reproducible builds. Update using e.g. ./mvnw versions:set -DnewVersion=... -->
     <project.build.outputTimestamp>2025-11-22T16:15:42Z</project.build.outputTimestamp>
 
+    <!-- plugin versions -->
+    <maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
+    <maven.enforcer.plugin.version>3.6.2</maven.enforcer.plugin.version>
+    <maven.surefire.plugin.version>3.2.5</maven.surefire.plugin.version>
+
     <!-- Web dependencies -->
     <webjars-locator.version>1.1.2</webjars-locator.version>
     <webjars-bootstrap.version>5.3.8</webjars-bootstrap.version>
@@ -165,6 +170,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
+        <version>3.6.2</version>
         <executions>
           <execution>
             <id>enforce-java</id>
@@ -174,8 +180,10 @@
             <configuration>
               <rules>
                 <requireJavaVersion>
-                  <message>This build requires at least Java ${java.version}, update your JVM, and run the build again</message>
-                  <version>${java.version}</version>
+                  <version>[25,)</version>
+                  <message>
+                    This build requires Java 25 or newer.
+                  </message>
                 </requireJavaVersion>
               </rules>
             </configuration>
